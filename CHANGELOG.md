@@ -2,6 +2,15 @@
 
 판 번호는 저장소 루트의 `VERSION`에 있다. 설치한 스킬의 판과 갱신은 `code/scripts/install-skills.sh check`와 `update`로 본다.
 
+## 0.8.1 (2026-10-15)
+
+스킬은 그대로이고 저장소의 겉과 점검만 바뀌었다.
+
+- README 첫 화면에 한눈에 보는 그림과 견본에서 절차가 실제로 잡아낸 일을 넣었다. 영문 요약 `README.en.md`를 더했다.
+- 라이선스를 코드용 `LICENSE`(MIT)와 문서용 `LICENSE-docs`(CC BY 4.0)로 나눴다. GitHub가 라이선스를 알아본다.
+- `protocols/구판/`을 지웠다. 옛 교류 규약은 git 이력에 있다.
+- 스크립트와 틀을 점검하는 `code/scripts/selftest.sh`와 GitHub Actions(`check`)를 더했다.
+
 ## 0.8 (2026-10-15)
 
 - 투고 직전의 일을 맡는 `submission-package` 스킬을 더했다. 투고 판 동결, 일반본과 익명본, 재현 자료, 투고 화면 값, 새 에이전트의 마지막 점검까지 준비하고 제출은 사용자가 한다.

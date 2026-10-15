@@ -1,0 +1,15 @@
+Documentation, templates, and examples in this repository are licensed under
+the Creative Commons Attribution 4.0 International License (CC BY 4.0).
+
+Copyright (c) 2026 research-ops contributors
+
+This covers README.md, README.en.md, AGENTS.md, CHANGELOG.md, docs/,
+templates/, and examples/. Scripts (code/, scaffold/) and skills (skills/)
+are licensed under the MIT License in LICENSE, as are scripts inside
+examples/ and the files under .github/.
+
+You are free to share and adapt the material for any purpose, including
+commercially, provided you give appropriate credit, provide a link to the
+license, and indicate if changes were made.
+
+Full legal code: https://creativecommons.org/licenses/by/4.0/legalcode
