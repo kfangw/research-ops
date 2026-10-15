@@ -1,6 +1,6 @@
 ---
 name: "english-academic-style"
-description: "<사용자>의 영문 학술 문체 규범(humanizer의 Wikipedia AI-writing 목록을 흡수한 판). 영어 논문·학회 원고·기술 보고서·연구 노트를 쓰거나 고칠 때, 또는 \"make it sound human\", \"remove the AI tell\", \"polish for submission\", \"humanize\" 같은 요청이 있을 때 반드시 이 스킬을 따른다. 영어로 된 격식 있는 글(abstract, introduction, related work, conclusion, rebuttal, proposal)을 생성·수정·검토하는 모든 작업에 적용한다. 사용자가 문체를 언급하지 않아도 영문 학술·기술 문서를 다루는 순간 적용한다."
+description: "사용자의 영문 학술 문체 규범(humanizer의 Wikipedia AI-writing 목록을 흡수한 판). 영어 논문·학회 원고·기술 보고서·연구 노트를 쓰거나 고칠 때, 또는 \"make it sound human\", \"remove the AI tell\", \"polish for submission\", \"humanize\" 같은 요청이 있을 때 반드시 이 스킬을 따른다. 영어로 된 격식 있는 글(abstract, introduction, related work, conclusion, rebuttal, proposal)을 생성·수정·검토하는 모든 작업에 적용한다. 사용자가 문체를 언급하지 않아도 영문 학술·기술 문서를 다루는 순간 적용한다."
 ---
 
 # English Academic Style Guide

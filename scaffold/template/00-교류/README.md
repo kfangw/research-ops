@@ -14,7 +14,7 @@
 
 ## 세션을 시작할 때
 
-1. `git pull --rebase origin main`.
+1. 원격(origin)이 있으면 `git pull --rebase origin main`.
 2. `현황.md`를 읽는다.
 3. `log/`의 최근 세 파일을 읽는다.
 4. 자기 앞으로 온 노트 가운데 `status: 대기`를 읽고 `확인`으로 바꾼 뒤 `read:`에 날짜를 적는다. 요청 사항은 이번 할 일에 넣는다.

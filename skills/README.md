@@ -1,6 +1,6 @@
 # 스킬
 
-Claude Code의 `.claude/skills/`나 claude.ai 프로젝트의 스킬로 올려 쓴다. 각 폴더의 `SKILL.md`가 전부다. 모든 스킬은 research-session의 공통 규칙을 따르고, 용어는 한 이름으로 통일했다.
+각 폴더의 `SKILL.md`가 전부다. 설치하지 않고 필요한 `SKILL.md`를 도구에게 읽혀도 되고, Claude Code, Codex, claude.ai에 설치하는 법은 저장소 루트의 `AGENTS.md` 4절과 `code/scripts/install-skills.sh`에 있다. 모든 스킬은 research-session의 공통 규칙을 따르고, 용어는 한 이름으로 통일했다.
 
 | 단계 | 스킬 | 하는 일 |
 |---|---|---|
@@ -16,7 +16,7 @@ Claude Code의 `.claude/skills/`나 claude.ai 프로젝트의 스킬로 올려 �
 | 원고 | paper-quality-loop | 심사, 분류, 수정, 문체의 바퀴를 기준에 닿을 때까지 |
 | 원고 | paper-readability | 내용을 고정한 원고를 처음 읽는 독자에게 맞춘다 |
 | 원고 | paper-condense | 쪽 수 상한에 맞추고 군더더기를 자른다 |
-| 내보내기 | rebuttal | 실제 심사평에 대한 대응표와 답신 |
+| 심사 뒤 | rebuttal | 실제 심사평에 대한 대응표와 답신 |
 | 공용 | fact-check | 고친 원고와 고정판의 사실 대조, 원자료 검산, 인용 검증 |
 | 공용 | korean-academic-style | 국문 학술 문체 규범 |
 | 공용 | english-academic-style | 영문 학술 문체 규범 |

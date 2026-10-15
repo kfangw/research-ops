@@ -2,6 +2,7 @@
 # 연구 프로젝트 틀을 새 폴더(또는 기존 폴더)에 입힌다.
 #
 #   new-project.sh <폴더경로> <프로젝트명> "<한 줄 설명>" ["<산출물 단위>"] ["<금지행위>"] [--existing]
+#   --existing은 어느 자리에 와도 된다. 프로젝트명은 영문 소문자, 숫자, . _ - 만.
 #
 # 환경변수
 #   SCAFFOLD_USER   문서에 적을 사용자 이름 (기본 git config user.name, 없으면 "사용자")
@@ -11,17 +12,43 @@
 # 기존 파일, 그리고 일부러 자리표시자를 남겨 둔 양식이나 스킬은 건드리지 않는다.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
+
+# --existing은 어느 자리에 와도 된다. 나머지가 위치 인자다
+MODE=""; ARGS=()
+for a in "$@"; do
+  if [ "$a" = "--existing" ]; then MODE="--existing"; else ARGS+=("$a"); fi
+done
+set -- "${ARGS[@]+"${ARGS[@]}"}"
 TARGET="${1:?폴더경로}"; NAME="${2:?프로젝트명}"; DESC="${3:?한 줄 설명}"
-UNIT="${4:-원고}"; FORBID="${5:-실험 실행}"; MODE="${6:-}"
+UNIT="${4:-원고}"; FORBID="${5:-실험 실행}"
 USER_NAME="${SCAFFOLD_USER:-$(git config user.name 2>/dev/null || echo 사용자)}"
 TODAY="$(date +%F)"
+
+if ! printf '%s' "$NAME" | grep -Eq '^[a-z0-9._-]+$'; then
+  echo "프로젝트명은 영문 소문자, 숫자, . _ - 만 쓴다(원격 저장소 이름이 된다): $NAME" >&2
+  exit 1
+fi
+
+# 0. 아무것도 바꾸기 전에 겹치는 파일을 먼저 본다
+if [ "$MODE" != "--existing" ] && [ -d "$TARGET" ]; then
+  clash="$(cd "$HERE/template" && find . -type f | while IFS= read -r p; do
+    [ -e "$TARGET/${p#./}" ] && printf '  %s\n' "${p#./}"; done || true)"
+  if [ -n "$clash" ]; then
+    printf '이미 있는 파일:\n%s\n기존 폴더에 입히려면 --existing을 붙인다. 아무것도 바꾸지 않았다.\n' "$clash" >&2
+    exit 1
+  fi
+fi
 
 mkdir -p "$TARGET"
 TARGET="$(cd "$TARGET" && pwd)"
 COPIED="$(mktemp)"; trap 'rm -f "$COPIED"' EXIT
 
-# git을 먼저 둔다. 기존 저장소면 지금 HEAD가 기준선이다.
-if [ ! -d "$TARGET/.git" ]; then git -C "$TARGET" init -q; fi
+# git을 먼저 둔다. 기존 저장소면 지금 HEAD가 기준선이다. 새 저장소의 브랜치는 main
+if [ ! -d "$TARGET/.git" ]; then
+  git -C "$TARGET" init -q -b main 2>/dev/null || { git -C "$TARGET" init -q; git -C "$TARGET" symbolic-ref HEAD refs/heads/main; }
+fi
+CUR="$(git -C "$TARGET" symbolic-ref --short HEAD 2>/dev/null || echo '')"
+[ "$CUR" = "main" ] || echo "주의: 지금 브랜치가 main이 아니다($CUR). 문서는 main을 기준으로 한다." >&2
 if BASE="$(git -C "$TARGET" rev-parse --short HEAD 2>/dev/null)"; then :; else
   BASE="첫 커밋 (git rev-list --max-parents=0 HEAD)"
 fi
@@ -83,10 +110,10 @@ if [ -z "$yn" ]; then
 fi
 if [ "$yn" = "y" ]; then
   cd "$TARGET"
-  git add -A && git commit -q -m "[claude] 교류 구조 도입" || true
+  git add . && git commit -q -m "[claude] 교류 구조 도입" || true
   gh repo create "$NAME" --private --source=. --remote=origin --push
 else
   echo "원격은 만들지 않았다. 나중에:"
-  echo "  cd \"$TARGET\" && git add -A && git commit -m \"[claude] 교류 구조 도입\""
+  echo "  cd \"$TARGET\" && git add . && git commit -m \"[claude] 교류 구조 도입\""
   echo "  gh repo create $NAME --private --source=. --remote=origin --push"
 fi

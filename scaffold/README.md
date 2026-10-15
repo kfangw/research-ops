@@ -11,6 +11,8 @@
     ./new-project.sh <폴더경로> <프로젝트명> "<한 줄 설명>" "<산출물 단위>" "<금지행위>"
     예) ./new-project.sh ~/Projects/my-study my-study "어느 측정 연구의 학회 논문" 원고 "실험 실행"
 
+저장소 루트에서 `scaffold/new-project.sh`로 불러도 된다. `--existing`은 어느 자리에 와도 된다.
+
 이미 있는 폴더에 입히기:
 
     ./new-project.sh ~/Projects/old-study old-study "..." 원고 "실험 실행" --existing
@@ -40,7 +42,7 @@
     00-교류/             두 도구의 교류. 현황.md가 단일 기준
       log/               세션 기록. 세션마다 파일 하나라 충돌이 나지 않는다
       claude-to-chatgpt/ chatgpt-to-claude/   인계 노트
-    docs/                연구계획, 할일목록, 승인기록
+    docs/                설정(도구, 역할과 모델, 원고), 연구계획, 할일목록, 승인기록
     manuscript/          원고. 지난 판은 구판/
     code/                실험 코드. 투고용 artifact는 여기서만 뽑는다
       scripts/export-artifact.sh
