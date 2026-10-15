@@ -29,6 +29,7 @@ IFS=',' read -r -a TL <<< "$TOOLS"
 if [ "${#TL[@]}" -lt 1 ] || [ "${#TL[@]}" -gt 2 ]; then echo "SCAFFOLD_TOOLS에는 도구 이름을 하나나 둘 준다: $TOOLS" >&2; exit 1; fi
 for t in "${TL[@]}"; do printf '%s' "$t" | grep -Eq '^[a-z0-9-]+$' || { echo "도구 이름은 영문 소문자, 숫자, - 만 쓴다: $t" >&2; exit 1; }; done
 T1="${TL[0]}"; T2="${TL[1]:-}"
+if [ -n "$T2" ] && [ "$T1" = "$T2" ]; then echo "SCAFFOLD_TOOLS의 두 도구 이름이 같다: $TOOLS" >&2; exit 1; fi
 if [ -n "$T2" ]; then NT=2; TOOL_LIST="$T1 / $T2"; else NT=1; TOOL_LIST="$T1"; fi
 # 틀의 경로를 실제 경로로. 도구가 하나면 인계 노트 폴더와 양식은 넣지 않는다
 mappath() { printf '%s' "$1" | sed -e "s|{{오늘}}|$TODAY|g" -e "s|{{도구1}}|$T1|g" -e "s|{{도구2}}|$T2|g"; }

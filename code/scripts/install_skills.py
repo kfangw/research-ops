@@ -80,7 +80,12 @@ def dest_for(tool, project):
 
 def load(dest):
     p = pathlib.Path(dest) / MANIFEST
-    return json.loads(p.read_text(encoding='utf-8')) if p.exists() else None
+    if not p.exists():
+        return None
+    try:
+        return json.loads(p.read_text(encoding='utf-8'))
+    except json.JSONDecodeError:
+        raise RuntimeError(f'설치 기록이 깨졌다: {p}. 지우고 FORCE=1로 다시 설치한다.')
 
 
 def save(dest, m):
@@ -206,13 +211,15 @@ def status(dest, m, target):
         else:
             st = '사용자가 고침, 새 판 있음'
         rows.append((n, st))
-    known = set(m['skills'])
-    try:
-        names = [p.split('/')[1] for p in git('ls-tree', '-r', '--name-only', target, 'skills').splitlines()
-                 if p.endswith('/SKILL.md')]
-    except RuntimeError:
-        names = []
-    added = sorted(set(names) - known)
+    def tree(c):
+        try:
+            return {p.split('/')[1] for p in git('ls-tree', '-r', '--name-only', c, 'skills').splitlines()
+                    if p.endswith('/SKILL.md')}
+        except RuntimeError:
+            return set()
+    now_names = tree(target)
+    before = tree(m.get('commit', '')) if m.get('commit', '?') != '?' else set()
+    added = sorted(now_names - before - set(m['skills'])) if before else sorted(now_names - set(m['skills']) if m.get('mode') == 'all' else set())
     return rows, added
 
 
@@ -225,29 +232,40 @@ def check(dests, do_update=False):
         print(f'{ROOT}는 git 클론이 아니어서 새 판을 확인할 수 없다. 저장소를 git clone으로 받아 그 안의 스크립트로 확인한다.')
         return 1
     if do_update:
-        dirty = git('status', '--porcelain')
+        dirty = git('status', '--porcelain', '--untracked-files=no')
         if dirty:
             print(f'{ROOT}에 커밋하지 않은 변경이 있어 받지 않는다. 그 변경을 정리한 뒤 다시 한다.')
             return 1
-    got = latest()
-    target, branch = got
+    try:
+        target, branch = latest()
+    except RuntimeError as e:
+        print(f'새 판을 확인하지 못했다(네트워크나 원격 문제): {e}')
+        return 1
     if do_update:
-        git('merge', '--ff-only', '-q', branch)
+        r = subprocess.run(['git', '-C', str(ROOT), 'merge', '--ff-only', '-q', branch], capture_output=True, text=True)
+        if r.returncode != 0:
+            print(f'{ROOT}의 main이 원격과 갈라져 앞으로만 받을 수 없다. 이 클론의 로컬 커밋을 정리하거나 새로 클론한다.')
+            return 1
     rc = 0
     for dest in dests:
         m = load(dest)
         if not m:
-            print(f'{dest}: 설치 기록 없음'); continue
+            print(f'{dest}: 설치 기록 없음. 이 폴더에 install-skills.sh로 설치하면 기록이 생긴다.'); rc = 1; continue
         old_c, old_v = m.get('commit', '?'), m.get('version', '?')
         new_v = version_at(target)
         rows, added = status(dest, m, target)
-        behind = [r for r in rows if r[1] in ('새 판 있음', '사용자가 고침, 새 판 있음', '기록 전 설치, 새 판과 다름')] or added
+        skill_behind = [r for r in rows if r[1] in ('새 판 있음', '사용자가 고침, 새 판 있음', '기록 전 설치, 새 판과 다름')]
+        new_for_all = added if m.get('mode') == 'all' else []
+        moved = old_c != target
+        behind = skill_behind or new_for_all or moved
         pending = [r[0] for r in rows if 'SKILL.md.new' in r[1]]
         print(f'== 갱신 확인 | {dest} | 설치 {old_v} ({old_c[:7]}) | 저장소 {new_v} ({target[:7]}) ==')
         for n, st in rows:
             print(f'  {n:<24} {st}')
         for n in added:
             print(f'  {n:<24} 새 스킬' + (' (전체 설치라 갱신 때 넣는다)' if m.get('mode') == 'all' else ' (일부 설치라 넣지 않는다. 원하면 ONLY로 설치)'))
+        if moved and not skill_behind and not new_for_all:
+            print('  설치한 스킬은 바뀌지 않았다. 문서, 양식, 스캐폴드가 바뀌었을 수 있다.')
         if behind and not do_update:
             rc = 3
             log = changelog_since(old_v, target) if old_v != new_v else []
@@ -265,18 +283,23 @@ def check(dests, do_update=False):
                 if st == '새 판 있음':
                     shutil.rmtree(d); shutil.copytree(SRC / n, d)
                     m['skills'][n] = {'sha256': sha(d / 'SKILL.md')}
-                elif st.startswith('사용자가 고침') or st.startswith('기록 전 설치'):
-                    shutil.copyfile(SRC / n / 'SKILL.md', d / 'SKILL.md.new')
+                elif st in ('사용자가 고침, 새 판 있음', '기록 전 설치, 새 판과 다름'):
+                    for f in sorted((SRC / n).rglob('*')):
+                        if f.is_file():
+                            g = d / f.relative_to(SRC / n)
+                            if not g.exists() or g.read_bytes() != f.read_bytes():
+                                g.parent.mkdir(parents=True, exist_ok=True)
+                                shutil.copyfile(f, g.with_name(g.name + '.new'))
                     m['skills'][n] = {'sha256': sha(d / 'SKILL.md.new'), 'note': '사용자가 고친 판. 이 해시는 마지막으로 받은 새 판'}
                     merge.append(n)
             if m.get('mode') == 'all':
-                for n in added:
+                for n in new_for_all:
                     shutil.copytree(SRC / n, pathlib.Path(dest) / n)
                     m['skills'][n] = {'sha256': sha(pathlib.Path(dest) / n / 'SKILL.md')}
             m.update({'commit': target, 'version': new_v, 'installed_at': now()})
             print(f'  갱신함: 판 {new_v} ({target[:7]})')
             if merge:
-                print('  사용자가 고친 스킬은 덮지 않았다. 새 판은 각 폴더의 SKILL.md.new에 있다. 바뀐 곳을 합친 뒤 .new를 지운다: ' + ' '.join(merge))
+                print('  사용자가 고친 스킬은 덮지 않았다. 새 판은 그 폴더의 .new 파일(SKILL.md.new 등)에 있다. 바뀐 곳을 합친 뒤 .new를 지운다: ' + ' '.join(merge))
                 print('  고친 스킬을 버리고 새 판으로 바꾸려면: FORCE=1 ONLY=<이름> install-skills.sh <claude|codex> [프로젝트폴더]')
         m['last_check'] = now()
         save(dest, m)
