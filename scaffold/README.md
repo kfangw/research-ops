@@ -1,6 +1,6 @@
 # research-scaffold
 
-논문 한 편을 private GitHub 저장소 하나로 관리하면서 Claude와 Codex가 번갈아 변경하도록 만든 연구 프로젝트 틀이다.
+논문 한 편을 private GitHub 저장소 하나로 관리하는 연구 프로젝트 틀이다. AI 도구 하나로 써도 되고, 둘(예: Claude와 Codex)이 번갈아 고쳐도 된다.
 원고, 교류 기록, 코드, 자료, 결과를 한 저장소에 두고, 투고용 artifact는 `code/`만 따로 뽑아 낸다.
 이 틀로 프로젝트를 만드는 일은 `research-scaffold` 스킬이, 만든 뒤 매 세션의 시작과 마침은 `research-session` 스킬이 맡는다.
 
@@ -12,6 +12,10 @@
     예) ./new-project.sh ~/Projects/my-study my-study "어느 측정 연구의 학회 논문" 원고 "실험 실행"
 
 저장소 루트에서 `scaffold/new-project.sh`로 불러도 된다. `--existing`은 어느 자리에 와도 된다.
+
+쓰는 도구는 `SCAFFOLD_TOOLS`로 준다. 기본은 `claude,chatgpt`이고, `SCAFFOLD_TOOLS=claude`처럼 하나만 주면 인계 노트 없이 세션 기록만 쓰는 틀이 된다.
+
+    SCAFFOLD_TOOLS=claude ./new-project.sh ~/Projects/my-study my-study "어느 측정 연구의 학회 논문"
 
 이미 있는 폴더에 입히기:
 
@@ -41,7 +45,7 @@
     README.md            프로젝트 지도
     00-교류/             두 도구의 교류. 현황.md가 단일 기준
       log/               세션 기록. 세션마다 파일 하나라 충돌이 나지 않는다
-      claude-to-chatgpt/ chatgpt-to-claude/   인계 노트
+      <도구1>-to-<도구2>/ <도구2>-to-<도구1>/   인계 노트(도구가 둘일 때만)
     docs/                설정, 연구계획, 할일목록, 승인기록
       맡김/              자리를 비운 동안 맡긴 작업의 지시서와 검토서
     manuscript/          원고. 지난 판은 구판/

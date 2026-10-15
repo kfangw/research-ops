@@ -7,8 +7,8 @@
 
     ---
     date: YYYY-MM-DD
-    who: claude | chatgpt
+    who: <도구 이름>
     commit: abc1234   # 이 세션의 마지막 커밋. 없으면 "미커밋"
-    note: claude-to-chatgpt/YYYY-MM-DD-01-주제.md   # 인계 노트. 없으면 "없음"
+    note: <보낸 도구>-to-<받는 도구>/YYYY-MM-DD-01-주제.md   # 인계 노트. 없으면 "없음"
     ---
     (한두 줄 요약. 무엇을 했고 다음에 무엇이 남았나)
