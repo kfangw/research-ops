@@ -4,6 +4,35 @@ LLM 에이전트 여럿에게 연구 작업을 나눠 맡길 때, 에이전트�
 
 연구 내용은 담지 않고 절차만 담는다.
 
+## 처음이라면
+
+스킬 17개를 다 알 필요는 없다. 처음에는 착수 단계의 셋만 쓴다.
+
+```
+ 1 problem-grill          2 literature-scout         3 feasibility-gate
+ "문제 정리해 줘"   -->   "선행 연구 찾아"     -->   "해볼 만해?"
+ 한 문장 문제 정의와       가장 가까운 논문과         결과 전에 정한 기준으로
+ 반증 조건을 잠근다        거리, 찾지 못한 것의 기록   착수할지 접을지 판정
+```
+
+설치는 이 셋만 넣으면 된다(공통 규칙을 담은 `research-session`은 함께 들어간다).
+
+```
+ONLY=problem-grill,literature-scout,feasibility-gate code/scripts/install-skills.sh claude
+```
+
+채워진 예는 `examples/demo-study`의 1~3번 파일(문제 정의, 정찰, 관문)이다. 나머지는 필요할 때 더한다.
+
+| 이럴 때 | 더할 스킬 |
+|---|---|
+| 실험이나 측정을 시작한다 | `preregister-seal` |
+| 할 일이 여럿이고 에이전트에게 나눠 맡긴다, 자는 동안 돌리고 싶다 | `research-batch` |
+| 숫자와 인용을 확인한다 | `fact-check` |
+| 원고를 쓴다 | `paper-framing`, `paper-quality-loop` |
+| 투고한다, 심사평을 받았다 | `submission-package`, `rebuttal` |
+| 논문이 여러 편이다 | `research-portfolio` |
+| 프로젝트 폴더를 체계적으로 두고 싶다 | `research-scaffold` |
+
 ## AI 도구로 시작하기
 
 이 저장소는 AI 도구가 주소만 받아도 읽고 쓸 수 있게 만들었다. 도구가 읽을 안내는 `AGENTS.md`에 있다(Claude Code는 `CLAUDE.md`를 거쳐 같은 파일을 읽는다). 쓰는 도구에 다음 가운데 하나를 그대로 붙여 넣으면 된다. `<주소>`는 이 저장소의 주소다.
