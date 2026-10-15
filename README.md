@@ -26,6 +26,8 @@ Claude Code나 Codex처럼 저장소를 내려받을 수 있는 도구:
 <주소> 를 클론하고 AGENTS.md 4절대로 스킬을 설치해 줘. 어디에 넣을지 먼저 보여 줘.
 ```
 
+이 저장소는 당분간 자주 바뀐다. 스킬을 설치했으면 세션을 시작할 때 도구가 주기적으로(기본 7일) 새 판을 확인하고 알린다. 직접 확인하려면 `code/scripts/install-skills.sh check`, 갱신하려면 `update`를 돌린다. 사용자가 고친 스킬은 덮지 않는다. 판 번호는 `VERSION`, 바뀐 것은 `CHANGELOG.md`에 있다.
+
 claude.ai처럼 저장소를 내려받지 못하는 곳에서는 `AGENTS.md`와 필요한 `skills/<이름>/SKILL.md`를 대화에 붙이거나, 스킬을 zip으로 올려 쓴다(`AGENTS.md` 4절).
 
 ## 배경

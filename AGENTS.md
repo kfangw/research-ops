@@ -97,6 +97,7 @@ LLM 에이전트에게 연구 작업을 나눠 맡길 때 결과를 믿고 쓸 �
 - 일부만 넣으려면 `ONLY=problem-grill,literature-scout,feasibility-gate`, 덮어쓰려면 `FORCE=1`을 앞에 붙인다. 모든 스킬이 `research-session`의 공통 규칙을 가리키므로 `ONLY`를 주면 `research-session`은 늘 함께 들어간다. 일부만 넣은 스킬이 설치하지 않은 스킬(예: `fact-check`)을 가리키면 이 저장소의 `skills/`에서 읽는다. `install-skills.sh list`는 스킬 이름과 설명을 보인다.
 - Codex의 전역 폴더는 `CODEX_HOME`이 있으면 `$CODEX_HOME/skills/`다. Codex가 스킬을 읽는 폴더는 버전에 따라 다를 수 있다. 설치 뒤 Codex에서 스킬이 보이지 않으면 그 버전의 문서를 확인하고 사용자에게 알린다.
 - 프로젝트 폴더에 넣은 스킬(`.claude/skills/`, `.codex/skills/`)은 그 저장소에 커밋해 두면 다른 컴퓨터와 다른 도구도 같은 판을 쓴다. 커밋할지는 사용자에게 묻는다.
+- 설치하면 스킬 폴더에 설치 기록(`.research-ops.json`: 저장소, 판, 커밋, 스킬마다 해시)이 남는다. `install-skills.sh check`는 새 판과 바뀐 스킬, 변경 기록을 보이고(새 판이 있으면 종료 코드 3), `install-skills.sh update`는 이 저장소를 받아 사용자가 고치지 않은 스킬만 바꾼다. 사용자가 고친 스킬은 덮지 않고 `SKILL.md.new`로 둔다. 이 저장소는 자주 바뀌므로 `research-session`이 세션을 시작할 때 정해진 주기(기본 7일)로 확인하고 알린다. 갱신은 사용자 확인 뒤에 한다(설정에서 자동으로 바꿀 수 있다).
 - claude.ai에 올리는 일은 사용자가 한다. 도구는 zip을 만들어 건네고 올리는 곳을 알린다. `research-scaffold`와 `research-session`은 bash와 git이 있어야 제대로 쓰이므로 claude.ai에서는 절차 참고용이다.
 
 ## 5. 연구 프로젝트 만들기

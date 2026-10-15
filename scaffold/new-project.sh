@@ -75,11 +75,14 @@ done
 esc() { printf '%s' "$1" | sed -e 's/[\\|&]/\\&/g'; }
 S_NAME="$(esc "$NAME")"; S_DESC="$(esc "$DESC")"; S_USER="$(esc "$USER_NAME")"
 S_UNIT="$(esc "$UNIT")"; S_FORBID="$(esc "$FORBID")"; S_BASE="$(esc "$BASE")"
+KIT_URL="$(git -C "$HERE/.." remote get-url origin 2>/dev/null || echo "(운영 체계 저장소 주소)")"
+KIT_VER="$(cat "$HERE/../VERSION" 2>/dev/null || echo "?")"
+S_KIT_URL="$(esc "$KIT_URL")"; S_KIT_VER="$(esc "$KIT_VER")"
 while IFS= read -r f; do
   case "$f" in *.gitkeep) continue;; esac
   sed -e "s|{{프로젝트명}}|$S_NAME|g" -e "s|{{프로젝트}}|$S_DESC|g" -e "s|{{사용자}}|$S_USER|g" \
       -e "s|{{산출물}}|$S_UNIT|g" -e "s|{{금지행위}}|$S_FORBID|g" -e "s|{{오늘}}|$TODAY|g" \
-      -e "s|{{기준선 해시}}|$S_BASE|g" "$f" > "$f.tmp-scaffold"
+      -e "s|{{기준선 해시}}|$S_BASE|g" -e "s|{{운영체계 주소}}|$S_KIT_URL|g" -e "s|{{운영체계 판}}|$S_KIT_VER|g" "$f" > "$f.tmp-scaffold"
   cat "$f.tmp-scaffold" > "$f"; rm -f "$f.tmp-scaffold"
 done < "$COPIED"
 
