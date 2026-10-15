@@ -82,7 +82,7 @@ scout-b     문헌 정찰   프리프린트           [진행]   14:07  14:19   
 | `docs/` | 원칙과 절차 설명 9편, 용어집 |
 | `templates/` | 사전 등록, 관문, 배치표, 배치 보고, 검산 지시문, 심사 지시문, 새 독자 지시문, 일일 점검 프롬프트 |
 | `scaffold/` | 새 연구 프로젝트를 만드는 `new-project.sh`와 그 틀(`template/`) |
-| `skills/` | 절차를 Claude Code나 claude.ai 프로젝트에서 쓸 수 있게 만든 스킬 16개(아래 스킬 절) |
+| `skills/` | 절차를 Claude Code나 claude.ai 프로젝트에서 쓸 수 있게 만든 스킬 17개(아래 스킬 절) |
 | `AGENTS.md`, `CLAUDE.md` | 주소를 받은 AI 도구가 먼저 읽는 안내 |
 | `code/scripts/seal.py` | 판정 규칙 파일의 봉인과 검증 |
 | `code/scripts/install-skills.sh` | 스킬을 Claude Code, Codex 폴더에 복사하거나 claude.ai용 zip으로 묶기 |
@@ -101,6 +101,7 @@ scout-b     문헌 정찰   프리프린트           [진행]   14:07  14:19   
 | 착수 | `problem-grill`, `literature-scout`, `feasibility-gate` | 문제 정의와 잠금, 선행 연구 정찰, 관문 G0~G7 판정 |
 | 실행 | `preregister-seal`, `research-batch` | 사전 등록과 봉인, 배치 계획과 실행과 보고, 자리를 비운 동안 맡기기 |
 | 원고 | `paper-framing`, `paper-quality-loop`, `paper-readability`, `paper-condense` | 초록, 서론, 결론의 구조, 심사와 수정의 바퀴, 가독성, 분량 |
+| 투고 | `submission-package` | 투고 판 동결, 일반본과 익명본, 재현 자료, 투고 화면 값, 마지막 점검 |
 | 심사 뒤 | `rebuttal` | 실제 심사평에 대한 심사 대응 |
 | 공용 | `fact-check`, `korean-academic-style`, `english-academic-style` | 사실 대조, 국문과 영문 문체 |
 

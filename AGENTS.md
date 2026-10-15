@@ -16,7 +16,7 @@ LLM 에이전트에게 연구 작업을 나눠 맡길 때 결과를 믿고 쓸 �
 
 | 경로 | 무엇 | 언제 읽나 |
 |---|---|---|
-| `skills/` | 연구 단계별 스킬 16개. 폴더마다 `SKILL.md` 하나 | 사용자의 요청에 맞는 스킬만 |
+| `skills/` | 연구 단계별 스킬 17개. 폴더마다 `SKILL.md` 하나 | 사용자의 요청에 맞는 스킬만 |
 | `scaffold/` | 새 연구 프로젝트 폴더를 만드는 `new-project.sh`와 틀 | 프로젝트를 만들 때 |
 | `templates/` | 관문, 사전 등록, 배치표, 검산과 심사 지시문 양식 | 스킬이 가리킬 때 |
 | `docs/` | 원칙과 절차 설명(01~09), 용어집 | 이유를 설명해야 할 때 |
@@ -67,12 +67,13 @@ LLM 에이전트에게 연구 작업을 나눠 맡길 때 결과를 믿고 쓸 �
 | 심사를 돌려 원고를 다듬는다 | `paper-quality-loop` | 멈춤 기준을 먼저 적고 심사와 수정의 바퀴를 돌린다 |
 | 읽기 쉽게, 기호를 줄여 | `paper-readability` | 내용을 고정한 뒤에만 한다 |
 | 쪽 수를 맞춘다, 줄인다 | `paper-condense` | 절삭 후보 표부터 만든다 |
+| 투고 직전이다, 제출 준비 | `submission-package` | 투고 판을 동결하고 일반본, 익명본, 재현 자료, 투고 화면 값을 만들어 점검한다. 제출은 사용자가 한다 |
 | 심사평을 받았다 | `rebuttal` | 지적을 나누고 대응표와 답신을 쓴다 |
 | 논문 여러 편, 투고처, 졸업이나 과제 요건 | `research-portfolio` | 연구 지도와 요건 계산 |
 | 두 도구(예: Claude와 Codex)를 함께 쓴다 | `research-session`, `docs/06-교류규약.md` | 세션 시작과 마침, 인계 노트 |
 | 문체를 다듬는다 | `korean-academic-style`, `english-academic-style` | 6절의 주의를 먼저 알린다 |
 
-스킬은 서로를 가리킨다. 흐름은 `problem-grill`, `literature-scout`, `feasibility-gate`로 착수를 판정하고, `preregister-seal`과 `research-batch`로 실행하고, `paper-framing`에서 `paper-quality-loop`로 원고를 다듬는 순서다. 모든 스킬의 공통 규칙은 `research-session`의 0절에 있다.
+스킬은 서로를 가리킨다. 흐름은 `problem-grill`, `literature-scout`, `feasibility-gate`로 착수를 판정하고, `preregister-seal`과 `research-batch`로 실행하고, `paper-framing`에서 `paper-quality-loop`로 원고를 다듬고, `submission-package`로 투고를 준비하는 순서다. 모든 스킬의 공통 규칙은 `research-session`의 0절에 있다.
 
 ## 3. 설치하지 않고 쓰기
 
