@@ -53,7 +53,7 @@ LLM 에이전트에게 연구 작업을 나눠 맡길 때 결과를 믿고 쓸 �
 | 사용자가 말하는 것 | 쓸 스킬이나 파일 | 할 일 |
 |---|---|---|
 | 이게 뭐야, 뭘 할 수 있어 | `README.md` | 1절 3번의 꼴로 답한다 |
-| 처음이다, 뭐부터 하면 되나 | `README.md`의 "처음이라면", `examples/demo-study` | 착수 스킬 셋(`problem-grill`, `literature-scout`, `feasibility-gate`)으로 시작하자고 권하고, 견본의 1~3번 파일을 보인다. 나머지 스킬은 필요할 때 더한다 |
+| 처음이다, 뭐부터 하면 되나 | `README.md`의 "시작하기", `examples/demo-study` | 착수 스킬 셋(`problem-grill`, `literature-scout`, `feasibility-gate`)으로 시작하자고 권하고, 견본의 1~3번 파일을 보인다. 나머지 스킬은 필요할 때 더한다 |
 | 아직 주제가 없다, 무엇을 연구할지 모르겠다 | `problem-grill` | 관심 분야, 쓸 수 있는 자료, 마감을 묻고 후보를 둘이나 셋으로 좁힌 뒤 하나씩 problem-grill로 다듬는다. 후보가 생기면 `feasibility-gate`로 비교한다. 이 체계는 주제를 대신 정하지 않는다 |
 | 스킬만 쓰고 싶다 | `code/scripts/install-skills.sh` | 4절 |
 | 새 연구 프로젝트를 시작한다 | `research-scaffold` | 5절 |
