@@ -1,0 +1,28 @@
+# 비밀값
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets/
+
+# 환경
+__pycache__/
+.venv/
+node_modules/
+.DS_Store
+tmp/
+_to_delete*/
+
+# 원자료와 큰 결과. 요약만 커밋한다
+data/raw/*
+!data/raw/.gitkeep
+results/raw/*
+!results/raw/.gitkeep
+*.tar.gz
+*.zip
+*.parquet
+*.sqlite
+
+# 투고용 artifact 작업본
+artifact-export/

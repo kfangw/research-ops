@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+# 연구 프로젝트 틀을 새 폴더(또는 기존 폴더)에 입힌다.
+#
+#   new-project.sh <폴더경로> <프로젝트명> "<한 줄 설명>" ["<산출물 단위>"] ["<금지행위>"] [--existing]
+#
+# 환경변수
+#   SCAFFOLD_USER   문서에 적을 사용자 이름 (기본 git config user.name, 없으면 "사용자")
+#   SCAFFOLD_PUSH   y 또는 n. 지정하면 묻지 않는다. 터미널이 아니면 n
+#
+# 자리표시자 치환과 파일명 바꾸기는 이 스크립트가 넣은 파일에만 한다.
+# 기존 파일, 그리고 일부러 자리표시자를 남겨 둔 양식이나 스킬은 건드리지 않는다.
+set -euo pipefail
+HERE="$(cd "$(dirname "$0")" && pwd)"
+TARGET="${1:?폴더경로}"; NAME="${2:?프로젝트명}"; DESC="${3:?한 줄 설명}"
+UNIT="${4:-원고}"; FORBID="${5:-실험 실행}"; MODE="${6:-}"
+USER_NAME="${SCAFFOLD_USER:-$(git config user.name 2>/dev/null || echo 사용자)}"
+TODAY="$(date +%F)"
+
+mkdir -p "$TARGET"
+TARGET="$(cd "$TARGET" && pwd)"
+COPIED="$(mktemp)"; trap 'rm -f "$COPIED"' EXIT
+
+# git을 먼저 둔다. 기존 저장소면 지금 HEAD가 기준선이다.
+if [ ! -d "$TARGET/.git" ]; then git -C "$TARGET" init -q; fi
+if BASE="$(git -C "$TARGET" rev-parse --short HEAD 2>/dev/null)"; then :; else
+  BASE="첫 커밋 (git rev-list --max-parents=0 HEAD)"
+fi
+
+# 1. 틀의 파일을 옮기고, 옮긴 파일만 목록에 적는다
+(cd "$HERE/template" && find . -mindepth 1 \( -type f -o -type d \) | sort) | while IFS= read -r p; do
+  src="$HERE/template/$p"; dst="$TARGET/${p#./}"
+  if [ -d "$src" ]; then mkdir -p "$dst"; continue; fi
+  if [ -e "$dst" ]; then
+    if [ "$MODE" = "--existing" ]; then
+      case "$p" in
+        ./AGENTS.md|./CLAUDE.md|./.gitignore|./README.md)
+          cp "$src" "$dst.scaffold"; printf '%s\n' "$dst.scaffold" >> "$COPIED";;
+      esac
+      continue
+    fi
+    echo "이미 있음: $dst. 기존 폴더에 입히려면 --existing을 붙인다." >&2
+    exit 1
+  fi
+  mkdir -p "$(dirname "$dst")"; cp "$src" "$dst"; printf '%s\n' "$dst" >> "$COPIED"
+done
+
+# 2. 옮긴 파일에만 자리표시자를 채운다
+esc() { printf '%s' "$1" | sed -e 's/[\\|&]/\\&/g'; }
+S_NAME="$(esc "$NAME")"; S_DESC="$(esc "$DESC")"; S_USER="$(esc "$USER_NAME")"
+S_UNIT="$(esc "$UNIT")"; S_FORBID="$(esc "$FORBID")"; S_BASE="$(esc "$BASE")"
+while IFS= read -r f; do
+  case "$f" in *.gitkeep) continue;; esac
+  sed -e "s|{{프로젝트명}}|$S_NAME|g" -e "s|{{프로젝트}}|$S_DESC|g" -e "s|{{사용자}}|$S_USER|g" \
+      -e "s|{{산출물}}|$S_UNIT|g" -e "s|{{금지행위}}|$S_FORBID|g" -e "s|{{오늘}}|$TODAY|g" \
+      -e "s|{{기준선 해시}}|$S_BASE|g" "$f" > "$f.tmp-scaffold"
+  cat "$f.tmp-scaffold" > "$f"; rm -f "$f.tmp-scaffold"
+done < "$COPIED"
+
+# 3. 옮긴 파일에만 파일명의 날짜 자리표시자를 바꾼다
+while IFS= read -r f; do
+  case "$(basename "$f")" in
+    *'{{오늘}}'*) mv "$f" "$(dirname "$f")/$(basename "$f" | sed "s|{{오늘}}|$TODAY|g")";;
+  esac
+done < "$COPIED"
+[ -f "$TARGET/code/scripts/export-artifact.sh" ] && chmod +x "$TARGET/code/scripts/export-artifact.sh" || true
+
+N="$(wc -l < "$COPIED" | tr -d ' ')"
+echo
+echo "틀을 입혔다: $TARGET (파일 $N개)"
+if grep -q '\.scaffold$' "$COPIED"; then
+  echo "기존 파일과 겹쳐 .scaffold로 둔 것 (손으로 합친 뒤 지운다):"
+  grep '\.scaffold$' "$COPIED" | sed "s|^$TARGET/|  |"
+fi
+echo "확인할 것: .env나 키 파일이 .gitignore에 걸리는지, 100MB 넘는 파일이 없는지."
+echo "  git -C \"$TARGET\" status --short | head; du -sh \"$TARGET\"/*/ 2>/dev/null"
+echo
+
+# 4. 원격 저장소. 묻지 않는 실행에서는 만들지 않는다
+yn="${SCAFFOLD_PUSH:-}"
+if [ -z "$yn" ]; then
+  if [ -t 0 ]; then read -r -p "GitHub private 저장소를 만들고 push할까? [y/N] " yn || yn=N
+  else yn=N; fi
+fi
+if [ "$yn" = "y" ]; then
+  cd "$TARGET"
+  git add -A && git commit -q -m "[claude] 교류 구조 도입" || true
+  gh repo create "$NAME" --private --source=. --remote=origin --push
+else
+  echo "원격은 만들지 않았다. 나중에:"
+  echo "  cd \"$TARGET\" && git add -A && git commit -m \"[claude] 교류 구조 도입\""
+  echo "  gh repo create $NAME --private --source=. --remote=origin --push"
+fi
