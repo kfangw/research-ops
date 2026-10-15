@@ -11,7 +11,7 @@
 | 착수 | literature-scout | 선행 연구 정찰. 같은 수학 꼴의 고전 이론까지 찾는다 |
 | 착수 | feasibility-gate | 관문 G0~G7을 결과 전에 정한 기준으로 판정한다 |
 | 실행 | preregister-seal | 실험 사양과 판정 규칙을 봉인하고 이탈과 누설, 수집 비용을 기록한다 |
-| 실행 | research-batch | 할일목록 새 판, 역할 배정, 연속 실행, 수시 보고 |
+| 실행 | research-batch | 할일목록 새 판, 역할 배정, 연속 실행, 수시 보고, 자리를 비운 동안 맡기고 돌아와 검토 |
 | 원고 | paper-framing | 초록, 서론, 결론의 구조와 주장 목록 |
 | 원고 | paper-quality-loop | 심사, 분류, 수정, 문체의 바퀴를 기준에 닿을 때까지 |
 | 원고 | paper-readability | 내용을 고정한 원고를 처음 읽는 독자에게 맞춘다 |

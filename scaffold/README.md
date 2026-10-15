@@ -42,7 +42,8 @@
     00-교류/             두 도구의 교류. 현황.md가 단일 기준
       log/               세션 기록. 세션마다 파일 하나라 충돌이 나지 않는다
       claude-to-chatgpt/ chatgpt-to-claude/   인계 노트
-    docs/                설정(도구, 역할과 모델, 원고), 연구계획, 할일목록, 승인기록
+    docs/                설정, 연구계획, 할일목록, 승인기록
+      맡김/              자리를 비운 동안 맡긴 작업의 지시서와 검토서
     manuscript/          원고. 지난 판은 구판/
     code/                실험 코드. 투고용 artifact는 여기서만 뽑는다
       scripts/export-artifact.sh

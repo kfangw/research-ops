@@ -50,11 +50,15 @@ claude.ai처럼 저장소를 내려받지 못하는 곳에서는 `AGENTS.md`와 
 
 원칙마다 필요한 이유와 지키는 방법은 `docs/01-원칙.md`에 있다.
 
+## 사용자가 없는 시간
+
+에이전트는 사용자가 자리를 비운 동안(밤, 회의, 주말)에도 일할 수 있다. 이 체계는 그 시간을 세션의 끝과 시작에 붙인다. 세션을 마칠 때 총괄이 맡길 만한 일을 제안하고, 사용자가 맡김 지시서(바꾸지 않을 것, 갈림길의 사전 결정, 멈춤 선, 검토 예산)를 승인하면 에이전트가 `away/` 브랜치에서 일한다. 결과는 다른 에이전트가 확인하고, 사용자가 돌아오기 전에 검토서로 정리한다. 다음 세션은 검토서부터 시작하고, 사용자가 받은 항목만 main에 합친다. 사용자의 시간은 결정과 검토에, 에이전트의 시간은 조사와 구현과 확인에 쓰는 것이 목적이다. 맡기는 양은 에이전트의 능력이 아니라 사용자의 검토 시간으로 정한다. 원칙은 `docs/08-사용자가-없는-시간.md`, 절차는 `research-batch` 8절에 있다.
+
 ## 구성
 
 | 경로 | 내용 |
 |---|---|
-| `docs/` | 원칙과 절차 설명 7편, 용어집 |
+| `docs/` | 원칙과 절차 설명 8편, 용어집 |
 | `templates/` | 사전 등록, 관문, 배치표, 배치 보고, 검산 지시문, 심사 지시문, 새 독자 지시문, 일일 점검 프롬프트 |
 | `scaffold/` | 새 연구 프로젝트를 만드는 `new-project.sh`와 그 틀(`template/`) |
 | `skills/` | 절차를 Claude Code나 claude.ai 프로젝트에서 쓸 수 있게 만든 스킬 16개(아래 스킬 절) |
@@ -74,7 +78,7 @@ claude.ai처럼 저장소를 내려받지 못하는 곳에서는 `AGENTS.md`와 
 | 운영 기반 | `research-scaffold`, `research-session` | 프로젝트 만들기, 세션의 시작과 마침, 공통 규칙 |
 | 여러 편 | `research-portfolio` | 연구 지도, 편 사이 경계, 공용 문헌 대장, 투고처와 요건, 일일 점검 |
 | 착수 | `problem-grill`, `literature-scout`, `feasibility-gate` | 문제 정의와 잠금, 선행 연구 정찰, 관문 G0~G7 판정 |
-| 실행 | `preregister-seal`, `research-batch` | 사전 등록과 봉인, 배치 계획과 실행과 보고 |
+| 실행 | `preregister-seal`, `research-batch` | 사전 등록과 봉인, 배치 계획과 실행과 보고, 자리를 비운 동안 맡기기 |
 | 원고 | `paper-framing`, `paper-quality-loop`, `paper-readability`, `paper-condense` | 초록, 서론, 결론의 구조, 심사와 수정의 바퀴, 가독성, 분량 |
 | 심사 뒤 | `rebuttal` | 실제 심사평에 대한 심사 대응 |
 | 공용 | `fact-check`, `korean-academic-style`, `english-academic-style` | 사실 대조, 국문과 영문 문체 |
