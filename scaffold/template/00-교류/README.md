@@ -1,14 +1,14 @@
-# 00-교류 — claude와 chatgpt가 이 프로젝트를 주고받는 규칙
+# 00-교류: claude와 chatgpt가 이 프로젝트를 주고받는 규칙
 
-두 AI 도구는 서로 대화하지 않는다. git 커밋과 이 폴더의 파일이 유일한 통로다.
+두 AI 도구는 서로 대화하지 않고, git 커밋과 이 폴더의 파일로만 변경을 주고받는다.
 루트의 `AGENTS.md`(Codex가 읽음)와 `CLAUDE.md`(Claude가 읽음, AGENTS.md를 가리킴)는 이 문서를 가리킨다.
 
 ## 구성
 
-| 파일·폴더 | 무엇 | 누가 고치나 |
+| 파일, 폴더 | 무엇 | 누가 고치나 |
 |---|---|---|
-| `현황.md` | 무엇이 현행이고 다음에 무엇을 하는지. 단일 진실 | 둘 다. 세션 끝에 갱신 |
-| `log/YYYY-MM-DD-NN-도구.md` | 세션 대장. 세션마다 파일 하나 | 쓴 쪽만 |
+| `현황.md` | 무엇이 현행이고 다음에 무엇을 하는지. 단일 기준 | 둘 다. 세션 끝에 갱신 |
+| `log/YYYY-MM-DD-NN-도구.md` | 세션 기록. 세션마다 파일 하나 | 쓴 쪽만 |
 | `claude-to-chatgpt/` | claude가 chatgpt에게 남기는 인계 노트 | claude가 쓰고 chatgpt가 `status`를 바꾼다 |
 | `chatgpt-to-claude/` | chatgpt가 claude에게 남기는 인계 노트 | chatgpt가 쓰고 claude가 `status`를 바꾼다 |
 
@@ -17,7 +17,7 @@
 1. `git pull --rebase origin main`.
 2. `현황.md`를 읽는다.
 3. `log/`의 최근 세 파일을 읽는다.
-4. 자기 앞으로 온 노트 중 `status: 대기`를 읽고 `확인`으로 바꾸고 `read:`에 날짜를 적는다. 요청 사항은 이번 할 일에 넣는다.
+4. 자기 앞으로 온 노트 가운데 `status: 대기`를 읽고 `확인`으로 바꾼 뒤 `read:`에 날짜를 적는다. 요청 사항은 이번 할 일에 넣는다.
 5. `git log --oneline -20`.
 
 ## 세션을 마칠 때
@@ -25,7 +25,7 @@
 1. 바꾼 것이 있으면 인계 노트 한 장. 파일명 `YYYY-MM-DD-NN-주제.md`. 양식은 `인계노트-양식.md`.
 2. `현황.md` 갱신. 현행 판이 바뀌었으면 반드시.
 3. `log/`에 세션 파일 하나. 양식은 `log/README.md`.
-4. `[claude]` 또는 `[chatgpt]` 접두 커밋. 작업 단위마다, 몰아서 하지 않는다.
+4. `[claude]` 또는 `[chatgpt]` 접두 커밋. 몰아서 하지 않고 작업 단위마다 한다.
 5. `git push origin main`. 거절되면 pull --rebase 후 다시.
 
 ## 충돌을 피하는 규칙
