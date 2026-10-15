@@ -1,6 +1,7 @@
 # research-ops (English summary)
 
-[![version](https://img.shields.io/badge/version-0.8.1-informational)](CHANGELOG.md)
+[![check](https://github.com/kfangw/research-ops/actions/workflows/check.yml/badge.svg)](https://github.com/kfangw/research-ops/actions/workflows/check.yml)
+[![release](https://img.shields.io/github/v/release/kfangw/research-ops)](https://github.com/kfangw/research-ops/releases)
 [![code: MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
 [![docs: CC BY 4.0](https://img.shields.io/badge/docs-CC%20BY%204.0-lightgrey)](LICENSE-docs)
 
