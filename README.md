@@ -86,6 +86,8 @@ ONLY=problem-grill,literature-scout,feasibility-gate code/scripts/install-skills
 
 스킬을 설치해 두면 세션을 시작할 때 일주일에 한 번 새 판이 있는지 확인해 알려 줍니다. 갱신해도 직접 고친 스킬은 덮어쓰지 않습니다.
 
+스킬 모음 사이트에서 스킬을 하나씩 받아 설치할 수도 있지만 권하지 않습니다. 그렇게 받으면 모든 스킬이 기대는 공통 규칙(`research-session`)이 빠지고, 새 판 확인과 갱신도 되지 않습니다. 이 저장소를 클론해 `install-skills.sh`로 설치하세요.
+
 ## 스킬 17개
 
 | 단계 | 스킬 | 이럴 때 |

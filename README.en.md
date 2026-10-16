@@ -59,6 +59,8 @@ ONLY=problem-grill,literature-scout,feasibility-gate code/scripts/install-skills
 
 Once installed, the skills check for a newer release once a week when a session starts. Updates never overwrite skills you have edited.
 
+Skill directory sites may offer these skills one at a time. We advise against installing them that way: a single skill arrives without `research-session`, which holds the rules every skill relies on, and it never receives updates. Clone this repository and install with `install-skills.sh` instead.
+
 ## Skills
 
 | Stage | Skills |
