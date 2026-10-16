@@ -27,6 +27,11 @@
 
 마지막에 `gh repo create <프로젝트명> --private --source=. --remote=origin --push`를 실행할지 묻는다. `SCAFFOLD_PUSH=y` 또는 `n`으로 미리 정할 수 있고, 터미널이 아닌 곳(에이전트 실행)에서는 묻지 않고 만들지 않는다. 문서에 적을 사용자 이름은 `SCAFFOLD_USER`(기본은 `git config user.name`, 없으면 "사용자").
 
+## 고친 것 (2026-10-16)
+
+- 이미 있는 폴더를 옮기는 절차를 스킬 5절에 더했다. 폴더 안의 git 저장소는 submodule로, bundle의 가지는 `code/scripts/restore-bundles.sh`로 모은다. 큰 파일은 중복·원자료·산출물로 나눠 `_local/`과 `.gitignore`로 뺀다.
+- 틀에 자동 저장(`autosync.sh`, launchd plist)을 넣었다. 자리표시자 `{{폴더경로}}`를 더했다.
+
 ## 고친 것 (2026-10-15)
 
 - `--existing`에서 치환이 대상 폴더의 모든 `.md`에 걸려 기존 양식의 자리표시자를 덮던 문제. 넣은 파일 목록을 따로 적고 그 목록에만 치환한다.
@@ -51,6 +56,8 @@
     manuscript/          원고. 지난 판은 구판/
     code/                실험 코드. 투고용 artifact는 여기서만 뽑는다
       scripts/export-artifact.sh
+      scripts/autosync.sh, scripts/launchd/autosync.plist   사용자 컴퓨터의 자동 커밋·push(설치는 사용자)
+    _local/              git 제외. bundle, 압축 중복본, 자동 저장 기록
     data/                raw는 git 제외, processed는 작은 것만
     results/             raw는 git 제외, summary만 커밋
 

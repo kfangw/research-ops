@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- 맥의 자동 저장. 설치: cp 이 파일 ~/Library/LaunchAgents/research.{{프로젝트명}}.autosync.plist && launchctl load 그 파일.
+     멈춤: launchctl unload. 30분(1800초)마다 code/scripts/autosync.sh를 돌린다. git이 gh 인증을 쓰게 gh auth setup-git을 한 번 한다. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>research.{{프로젝트명}}.autosync</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>{{폴더경로}}/code/scripts/autosync.sh</string>
+    <string>{{폴더경로}}</string>
+    <string>mac</string>
+  </array>
+  <key>StartInterval</key><integer>1800</integer>
+  <key>RunAtLoad</key><true/>
+  <key>EnvironmentVariables</key>
+  <dict><key>PATH</key><string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string></dict>
+  <key>StandardOutPath</key><string>{{폴더경로}}/_local/autosync.launchd.log</string>
+  <key>StandardErrorPath</key><string>{{폴더경로}}/_local/autosync.launchd.log</string>
+</dict>
+</plist>
