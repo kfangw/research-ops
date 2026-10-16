@@ -108,11 +108,11 @@ LLM 에이전트에게 연구 작업을 나눠 맡길 때 결과를 믿고 쓸 �
 `skills/research-scaffold/SKILL.md`를 따른다. 요점은 다음과 같다.
 
 1. 필요한 것: bash, git, python3(봉인), gh(원격 저장소를 만들 때만).
-2. 대화에서 정해지지 않은 값만 묻는다. 폴더 경로와 한 줄 설명은 꼭 받는다. 프로젝트 이름은 원격 저장소 이름이 되므로 영문 소문자, 숫자, `.`, `_`, `-`만 쓰고, 정하지 않으면 폴더 이름을 쓴다. 사용자 이름은 문서에 들어가므로 `git config user.name`이 도구 이름(claude 등)이면 묻는다. 산출물 단위(기본 "원고")와 사용자 확인 없이 하면 안 되는 일(기본 "실험 실행")은 기본값을 쓰고 그렇게 했다고 말한다.
+2. 대화에서 정해지지 않은 값만 묻는다. 폴더 경로와 한 줄 설명은 꼭 받는다. 프로젝트 이름은 원격 저장소 이름이 되므로 영문 소문자, 숫자, `.`, `_`, `-`만 쓰고, 정하지 않으면 폴더 이름을 쓴다. 사용자 이름과 메일은 커밋 작성자가 되고 문서에 들어가므로 `git config user.name`이 도구 이름(claude 등)이거나 메일이 도구의 주소면 묻는다. 만든 프로젝트의 커밋은 사용자가 작성자, 도구가 공동 작성자다. 산출물 단위(기본 "원고")와 사용자 확인 없이 하면 안 되는 일(기본 "실험 실행")은 기본값을 쓰고 그렇게 했다고 말한다.
 3. 이 저장소의 루트에서 실행한다. 도구가 돌릴 때는 원격 저장소를 만들지 않게 `SCAFFOLD_PUSH=n`을 붙인다.
    ```
-   SCAFFOLD_USER="<사용자 이름>" SCAFFOLD_TOOLS=claude SCAFFOLD_PUSH=n scaffold/new-project.sh ~/Projects/my-study my-study "한 줄 설명"
-   SCAFFOLD_USER="<사용자 이름>" SCAFFOLD_PUSH=n scaffold/new-project.sh ~/Projects/old-study old-study "한 줄 설명" --existing
+   SCAFFOLD_USER="<사용자 이름>" SCAFFOLD_EMAIL="<사용자 메일>" SCAFFOLD_TOOLS=claude SCAFFOLD_PUSH=n scaffold/new-project.sh ~/Projects/my-study my-study "한 줄 설명"
+   SCAFFOLD_USER="<사용자 이름>" SCAFFOLD_EMAIL="<사용자 메일>" SCAFFOLD_PUSH=n scaffold/new-project.sh ~/Projects/old-study old-study "한 줄 설명" --existing
    ```
    새 저장소의 브랜치는 `main`이다. 겹치는 파일이 있으면 아무것도 바꾸지 않고 멈춘다. `--existing`은 어느 자리에 붙여도 되고, 기존 파일을 덮지 않는다. 겹치는 `AGENTS.md`, `CLAUDE.md`, `README.md`, `.gitignore`는 `.scaffold`를 붙여 두므로 기존 파일과 손으로 합친다.
 4. 만든 폴더의 `docs/설정.md`를 사용자와 채운다(도구, 역할별 모델, 원고의 언어와 투고처와 쪽 상한과 마감, 지킬 것).

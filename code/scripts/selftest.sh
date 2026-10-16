@@ -43,14 +43,27 @@ if python3 code/scripts/seal.py verify "$TMP/rule.md" >/dev/null 2>&1; then bad 
 # 4. 스캐폴드: 도구 둘과 하나, 남은 자리표시자 없음, 브랜치 main
 for tools in claude,chatgpt claude; do
   p="$TMP/proj-${tools/,/-}"
-  if SCAFFOLD_USER=tester SCAFFOLD_TOOLS="$tools" SCAFFOLD_PUSH=n scaffold/new-project.sh "$p" "t-${tools/,/-}" "selftest" >/dev/null 2>&1; then
+  if SCAFFOLD_USER=tester SCAFFOLD_EMAIL=tester@example.com SCAFFOLD_TOOLS="$tools" SCAFFOLD_PUSH=n scaffold/new-project.sh "$p" "t-${tools/,/-}" "selftest" >/dev/null 2>&1; then
     left="$(grep -rl '{{' "$p" --exclude-dir=.git 2>/dev/null | wc -l)"
     br="$(git -C "$p" symbolic-ref --short HEAD 2>/dev/null)"
     [ "$left" = 0 ] && [ "$br" = main ] && ok "스캐폴드 도구 $tools" || bad "스캐폴드 $tools: 자리표시자 남은 파일 $left, 브랜치 $br"
   else bad "스캐폴드 실행 실패: $tools"; fi
 done
 mkdir -p "$TMP/clash" && touch "$TMP/clash/README.md"
-if SCAFFOLD_USER=tester SCAFFOLD_PUSH=n scaffold/new-project.sh "$TMP/clash" clash "x" >/dev/null 2>&1; then bad "겹치는 파일이 있는데 스캐폴드가 멈추지 않음"; else ok "스캐폴드 겹침 탐지"; fi
+if SCAFFOLD_USER=tester SCAFFOLD_EMAIL=tester@example.com SCAFFOLD_PUSH=n scaffold/new-project.sh "$TMP/clash" clash "x" >/dev/null 2>&1; then bad "겹치는 파일이 있는데 스캐폴드가 멈추지 않음"; else ok "스캐폴드 겹침 탐지"; fi
+
+if SCAFFOLD_USER=Claude SCAFFOLD_EMAIL=noreply@anthropic.com SCAFFOLD_PUSH=n scaffold/new-project.sh "$TMP/bot" bot "x" >/dev/null 2>&1 || [ -e "$TMP/bot" ]; then bad "도구 이름을 작성자로 받음"; else ok "도구 작성자 거절"; fi
+
+# 4-1. 커밋 작성자 hook: 작성자는 사용자, 접두 커밋에는 공동 작성자 줄
+p="$TMP/proj-claude-chatgpt"
+as_user() { GIT_AUTHOR_NAME=tester GIT_AUTHOR_EMAIL=tester@example.com git -C "$p" "$@"; }
+if [ "$(git -C "$p" config core.hooksPath)" = code/hooks ] && [ "$(git -C "$p" config user.email)" = tester@example.com ]; then
+  git -C "$p" add -A
+  if GIT_AUTHOR_NAME=Claude GIT_AUTHOR_EMAIL=noreply@anthropic.com git -C "$p" commit -q -m "[claude] x" >/dev/null 2>&1; then bad "hook: 도구 작성자를 통과시킴"
+  elif as_user commit -q -m "[claude] x" >/dev/null 2>&1; then bad "hook: 공동 작성자 줄 없는 접두 커밋을 통과시킴"
+  elif ! as_user commit -q -m "$(printf '[claude] x\n\nCo-Authored-By: Claude <noreply@anthropic.com>')" >/dev/null 2>&1; then bad "hook: 맞는 커밋을 막음"
+  else ok "커밋 작성자 hook"; fi
+else bad "스캐폴드가 작성자나 hook을 설정하지 않음"; fi
 
 # 5. 스킬 설치: 프로젝트 폴더에 전부, 일부만(research-session 포함), zip
 p="$TMP/proj-claude"

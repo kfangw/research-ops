@@ -2,6 +2,15 @@
 
 판 번호는 저장소 루트의 `VERSION`에 있다. 설치한 스킬의 판과 갱신은 `code/scripts/install-skills.sh check`와 `update`로 본다.
 
+## 0.8.3 (2026-10-16)
+
+- 스캐폴드에 커밋 작성자 규칙을 넣었다. 커밋은 사용자와 도구가 함께 만든다. 작성자는 언제나 사용자이고, 도구가 만든 커밋은 접두와 함께 메시지 끝에 `Co-Authored-By:` 줄을 붙인다. 도구마다 git identity를 도구 이름으로 두던 규칙을 대체한다.
+- 틀의 `docs/설정.md`에 커밋 작성자 절(사용자 이름과 메일, 도구별 공동 작성자 줄)을 더했다.
+- 틀에 `code/hooks/commit-msg`를 더했다. 작성자가 도구이거나 메일이 설정과 다르면, 접두가 붙은 커밋에 공동 작성자 줄이 없으면 커밋을 막는다.
+- `new-project.sh`가 `SCAFFOLD_EMAIL`을 받고, 새 저장소의 작성자를 사용자로 두고 hook을 건다. 사용자 이름이 도구 이름이거나 메일이 도구의 주소면 아무것도 만들지 않고 멈춘다. 스크립트가 만드는 첫 커밋은 사용자의 커밋이므로 접두를 붙이지 않는다.
+- `autosync.sh`가 커밋이 거절되면 기록하고 알린다.
+- `research-scaffold`, `research-session`, `docs/06-교류규약.md`, 견본을 같은 규칙으로 맞췄다.
+
 ## 0.8.2 (2026-10-16)
 
 - `research-scaffold`에 이미 있는 폴더를 옮기는 절차(5절)를 더했다. 폴더 안의 git 저장소는 submodule로 두고, 회차별 bundle의 가지는 `code/scripts/restore-bundles.sh`로 한 저장소에 모은다. 큰 파일은 중복·원자료·산출물로 나눠 `_local/`과 `.gitignore`로 뺀다. 옛 경로 대조표와 링크 치환, 파일 이름 NFC 정규화도 적었다.

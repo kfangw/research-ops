@@ -25,9 +25,13 @@
 
 자리표시자 치환과 파일명의 `{{오늘}}` 바꾸기는 스크립트가 넣은 파일에만 한다. 기존 파일, 특히 일부러 자리표시자를 남겨 둔 양식이나 스킬은 건드리지 않는다.
 
-마지막에 `gh repo create <프로젝트명> --private --source=. --remote=origin --push`를 실행할지 묻는다. `SCAFFOLD_PUSH=y` 또는 `n`으로 미리 정할 수 있고, 터미널이 아닌 곳(에이전트 실행)에서는 묻지 않고 만들지 않는다. 문서에 적을 사용자 이름은 `SCAFFOLD_USER`(기본은 `git config user.name`, 없으면 "사용자").
+마지막에 `gh repo create <프로젝트명> --private --source=. --remote=origin --push`를 실행할지 묻는다. `SCAFFOLD_PUSH=y` 또는 `n`으로 미리 정할 수 있고, 터미널이 아닌 곳(에이전트 실행)에서는 묻지 않고 만들지 않는다. 문서에 적을 사용자 이름은 `SCAFFOLD_USER`(기본은 `git config user.name`, 없으면 "사용자"), 메일은 `SCAFFOLD_EMAIL`(기본은 `git config user.email`).
+
+커밋은 사용자와 도구가 함께 만든다. 스크립트는 새 저장소의 `user.name`과 `user.email`을 사용자 값으로 두고, 작성자 검사 hook(`code/hooks/commit-msg`)을 `core.hooksPath`로 건다. 사용자 이름이 도구 이름이거나 메일이 도구의 주소면 아무것도 만들지 않고 멈춘다. 규칙은 만든 프로젝트의 `docs/설정.md` 커밋 작성자 절에 있다.
 
 ## 고친 것 (2026-10-16)
+
+- 커밋 작성자 규칙을 넣었다. 작성자는 사용자이고 도구는 `Co-Authored-By:` 줄로 공동 작성자가 된다. `SCAFFOLD_EMAIL`을 받고, 저장소의 작성자를 사용자로 두고, `code/hooks/commit-msg`를 건다. 도구마다 git identity를 도구 이름으로 두던 규칙을 대체한다.
 
 - 이미 있는 폴더를 옮기는 절차를 스킬 5절에 더했다. 폴더 안의 git 저장소는 submodule로, bundle의 가지는 `code/scripts/restore-bundles.sh`로 모은다. 큰 파일은 중복·원자료·산출물로 나눠 `_local/`과 `.gitignore`로 뺀다.
 - 틀에 자동 저장(`autosync.sh`, launchd plist)을 넣었다. 자리표시자 `{{폴더경로}}`를 더했다.
