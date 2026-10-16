@@ -2,6 +2,11 @@
 
 판 번호는 저장소 루트의 `VERSION`에 있다. 설치한 스킬의 판과 갱신은 `code/scripts/install-skills.sh check`와 `update`로 본다.
 
+## 0.8.2 (2026-10-16)
+
+- `research-scaffold`에 이미 있는 폴더를 옮기는 절차(5절)를 더했다. 폴더 안의 git 저장소는 submodule로 두고, 회차별 bundle의 가지는 `code/scripts/restore-bundles.sh`로 한 저장소에 모은다. 큰 파일은 중복·원자료·산출물로 나눠 `_local/`과 `.gitignore`로 뺀다. 옛 경로 대조표와 링크 치환, 파일 이름 NFC 정규화도 적었다.
+- 틀에 사용자 컴퓨터의 자동 저장 `code/scripts/autosync.sh`와 launchd plist를 넣었다. 주기마다 커밋·rebase·push하고 충돌이면 되돌리고 알린다. 자리표시자 `{{폴더경로}}`를 더했고 템플릿 `.gitignore`가 `_local/`, `*.bundle`, `.fuse_hidden*`, `*.scaffold`를 뺀다.
+
 ## 0.8.1 (2026-10-15)
 
 스킬은 그대로이고 저장소의 겉과 점검만 바뀌었다.

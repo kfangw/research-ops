@@ -26,3 +26,9 @@ results/raw/*
 
 # 투고용 artifact 작업본
 artifact-export/
+
+# 사용자 컴퓨터에만 두는 것: git bundle, 압축 중복본, 자동 저장 기록
+_local/
+*.bundle
+.fuse_hidden*
+*.scaffold

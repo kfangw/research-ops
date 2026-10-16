@@ -20,7 +20,7 @@ LLM 에이전트에게 연구 작업을 나눠 맡길 때 결과를 믿고 쓸 �
 | `scaffold/` | 새 연구 프로젝트 폴더를 만드는 `new-project.sh`와 틀 | 프로젝트를 만들 때 |
 | `templates/` | 관문, 사전 등록, 배치표, 검산과 심사 지시문 양식 | 스킬이 가리킬 때 |
 | `docs/` | 원칙과 절차 설명(01~09), 용어집 | 이유를 설명해야 할 때 |
-| `code/scripts/` | `seal.py`(봉인), `install-skills.sh`(스킬 설치), `check-banned.sh`(공개 전 금지어 검사), `selftest.sh`(저장소 점검) | 실행할 때 |
+| `code/scripts/` | `seal.py`(봉인), `install-skills.sh`(스킬 설치), `check-banned.sh`(공개 전 금지어 검사), `restore-bundles.sh`(bundle의 가지 모으기), `selftest.sh`(저장소 점검) | 실행할 때 |
 | `examples/` | 채워진 가상 프로젝트 `demo-study`, 관문 판정과 독립 검토의 기록 예시 | 사용자에게 보여 줄 때, 처음 쓰는 사용자에게 |
 
 이 저장소 자체는 연구 프로젝트가 아니다. 여기서 세션 절차(`00-교류/`, 현황, 인계 노트)를 돌리지 않는다. `scaffold/template/` 안의 `AGENTS.md`는 앞으로 만들 프로젝트의 규칙이고, 이 저장소의 규칙이 아니다.
@@ -57,7 +57,7 @@ LLM 에이전트에게 연구 작업을 나눠 맡길 때 결과를 믿고 쓸 �
 | 아직 주제가 없다, 무엇을 연구할지 모르겠다 | `problem-grill` | 관심 분야, 쓸 수 있는 자료, 마감을 묻고 후보를 둘이나 셋으로 좁힌 뒤 하나씩 problem-grill로 다듬는다. 후보가 생기면 `feasibility-gate`로 비교한다. 이 체계는 주제를 대신 정하지 않는다 |
 | 스킬만 쓰고 싶다 | `code/scripts/install-skills.sh` | 4절 |
 | 새 연구 프로젝트를 시작한다 | `research-scaffold` | 5절 |
-| 이미 있는 연구 폴더에 이 체계를 입힌다 | `research-scaffold` | 5절, `--existing` |
+| 이미 있는 연구 폴더에 이 체계를 입힌다 | `research-scaffold` | 5절, `--existing`. 폴더 안에 git 저장소나 bundle, 큰 파일이 있으면 스킬 5절의 이전 절차를 먼저 |
 | 아이디어가 흐리다, 문제를 정리하고 싶다 | `problem-grill` | 질문을 하나씩 던져 한 문장 문제 정의를 만들고 잠근다 |
 | 관련 연구, 이미 누가 했나, 신규성 | `literature-scout` | 검색어를 기록하며 정찰하고 가장 가까운 논문과의 거리를 판정한다 |
 | 해볼 만한가, 타당성, 접을까 | `feasibility-gate` | 결과 전에 기준을 정하고 관문 G0~G7을 판정한다 |
