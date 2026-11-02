@@ -68,7 +68,7 @@ Skill directory sites may offer these skills one at a time. We advise against in
 | Starting a topic | `problem-grill`, `literature-scout`, `feasibility-gate` |
 | Running | `preregister-seal`, `research-batch` (including work while you are away) |
 | Checking | `fact-check` |
-| Manuscript | `paper-framing`, `paper-quality-loop`, `paper-readability`, `paper-condense` |
+| Manuscript | `paper-framing`, `paper-review`, `paper-quality-loop`, `paper-readability`, `paper-condense` |
 | Submission | `submission-package`, `rebuttal` |
 | Operations | `research-scaffold`, `research-session`, `research-portfolio` |
 | Style | `korean-academic-style`, `english-academic-style` |
