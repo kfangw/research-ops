@@ -117,6 +117,15 @@ The rules above are checked against a reference sample of well-written published
 
 Deliberate rules, kept although many published papers break them, because reviewers count them against a paper: no em dashes in a manuscript (Section 3), and claims in the abstract and conclusion no broader than the evidence in the body (the paper-framing skill). If the project keeps its own reference sample and measurement script, use its numbers instead of this table.
 
+## 8. Sentence patterns in the results and discussion of published papers
+
+Counted in the same reference sample. Follow the move, not the wording.
+
+- **Opening an evaluation section.** Published papers open the first paragraph with the setup, the research questions, or a short section guide, not with a result (results appear in 1/24 first paragraphs; "Table N shows" opens none). State the claim first and cite the table or figure afterwards, in parentheses or with "as shown in".
+- **Hedge by what you showed.** Use no hedge for a mechanism you demonstrated directly. Use "likely" when extrapolating beyond the measured range, "appears" when observing someone else's system only from outside, and "may be due to" or "we hypothesize" when guessing at a cause.
+- **Limitations.** Typically two (one to five), each followed by one defending sentence: the direction of the error (the estimate is conservative or a lower bound), why the choice was made, what was already done to mitigate it, or what the paper does not claim.
+- **Never in the sample (0/40):** "In conclusion,", "to the best of our knowledge", "outstanding", "remarkable", "unprecedented". Sentence-initial "Overall," is ordinary.
+
 ## Procedure
 
 1. **Mark.** Read the whole text once, collecting violations of Sections 1–4 in order, strongest first (Section 6). Look at paragraph shape as well as sentences: a contrast split across sentences, three parallel examples, or the same closer after every section is the same tell at a larger scale. Flag figurative phrasing and dictionary-grade vocabulary alongside the fingerprints.
