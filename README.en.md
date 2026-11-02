@@ -70,6 +70,7 @@ Skill directory sites may offer these skills one at a time. We advise against in
 | Checking | `fact-check` |
 | Manuscript | `paper-framing`, `paper-review`, `paper-quality-loop`, `paper-readability`, `paper-condense` |
 | Submission | `submission-package`, `rebuttal` |
+| Presenting | `seminar-slides` (slide rules and a first-listener review) |
 | Operations | `research-scaffold`, `research-session`, `research-portfolio` |
 | Style | `korean-academic-style`, `english-academic-style` |
 

@@ -19,6 +19,7 @@
 | 원고 | paper-condense | 쪽 수 상한에 맞추고 군더더기를 자른다 |
 | 투고 | submission-package | 투고 판 동결, 일반본과 익명본, 재현 자료, 투고 화면 값, 마지막 점검. 제출은 사용자 |
 | 심사 뒤 | rebuttal | 실제 심사평에 대한 대응표와 답신 |
+| 발표 | seminar-slides | 세미나와 회의 슬라이드의 구성, 장표 규칙, 청중별 공개 범위, 첫 독자 검토 |
 | 공용 | fact-check | 고친 원고와 고정판의 사실 대조, 원자료 검산, 인용 검증 |
 | 공용 | korean-academic-style | 국문 학술 문체 규범 |
 | 공용 | english-academic-style | 영문 학술 문체 규범 |
