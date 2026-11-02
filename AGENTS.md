@@ -77,7 +77,7 @@ LLM 에이전트에게 연구 작업을 나눠 맡길 때 결과를 믿고 쓸 �
 | 두 도구(예: Claude와 Codex)를 함께 쓴다 | `research-session`, `docs/06-교류규약.md` | 세션 시작과 마침, 인계 노트 |
 | 문체를 다듬는다 | `korean-academic-style`, `english-academic-style` | 6절의 주의를 먼저 알린다 |
 
-스킬은 서로를 가리킨다. 흐름은 `problem-grill`, `literature-scout`, `feasibility-gate`로 착수를 판정하고, `preregister-seal`과 `research-batch`로 실행하고, `paper-framing`에서 `paper-quality-loop`로 원고를 다듬고, `submission-package`로 투고를 준비하는 순서다. 모든 스킬의 공통 규칙은 `research-session`의 0절에 있다.
+스킬은 서로를 가리킨다. 흐름은 `problem-grill`, `literature-scout`, `feasibility-gate`로 착수를 판정하고, `research-batch`로 실행하고(봉인 `preregister-seal`은 선택), `paper-framing`에서 `paper-quality-loop`로 원고를 다듬고, `submission-package`로 투고를 준비하는 순서다. 모든 스킬의 공통 규칙은 `research-session`의 0절에 있다.
 
 ## 3. 설치하지 않고 쓰기
 
