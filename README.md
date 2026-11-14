@@ -88,13 +88,14 @@ ONLY=problem-grill,literature-scout,feasibility-gate code/scripts/install-skills
 
 스킬 모음 사이트에서 스킬을 하나씩 받아 설치할 수도 있지만 권하지 않습니다. 그렇게 받으면 모든 스킬이 기대는 공통 규칙(`research-session`)이 빠지고, 새 판 확인과 갱신도 되지 않습니다. 이 저장소를 클론해 `install-skills.sh`로 설치하세요.
 
-## 스킬 19개
+## 스킬 20개
 
 | 단계 | 스킬 | 이럴 때 |
 |---|---|---|
 | 착수 | `problem-grill`, `literature-scout`, `feasibility-gate` | 주제를 다듬고, 이미 누가 했는지 보고, 해볼지 정한다 |
 | 실행 | `research-batch`, `preregister-seal`(선택) | 일을 나눠 맡기고, 자는 동안 돌린다. 봉인은 드물게 |
 | 확인 | `fact-check` | 숫자와 인용이 원자료와 맞는지 본다 |
+| 원고 전 | `logic-chain` | 진행 중인 연구의 논리를 문제 정의에서 검증까지 다시 세우고 군더더기와 쓸데없는 조건을 걷어 낸다 |
 | 원고 | `paper-framing`, `paper-review`, `paper-quality-loop`, `paper-readability`, `paper-condense` | 초록과 서론을 세우고, 모의 심사를 돌리고, 읽기 쉽게 다듬고, 분량을 맞춘다 |
 | 투고 | `submission-package`, `rebuttal` | 투고 묶음을 만들고, 심사평에 답한다 |
 | 발표 | `seminar-slides` | 세미나와 회의 슬라이드를 만들고, 처음 듣는 사람 눈으로 검토한다 |

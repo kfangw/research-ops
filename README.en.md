@@ -68,6 +68,7 @@ Skill directory sites may offer these skills one at a time. We advise against in
 | Starting a topic | `problem-grill`, `literature-scout`, `feasibility-gate` |
 | Running | `preregister-seal`, `research-batch` (including work while you are away) |
 | Checking | `fact-check` |
+| Before the manuscript | `logic-chain` | Rebuild the argument of a study in progress from problem statement to validation, and strip what is redundant or unneeded |
 | Manuscript | `paper-framing`, `paper-review`, `paper-quality-loop`, `paper-readability`, `paper-condense` |
 | Submission | `submission-package`, `rebuttal` |
 | Presenting | `seminar-slides` (slide rules and a first-listener review) |
